@@ -12,7 +12,9 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class ShoppingItemFormActivity extends AppCompatActivity {
 
-    TextInputLayout nameTextField, quantityTextField, descriptionTextField;
+    private TextInputLayout nameTextField, quantityTextField, descriptionTextField;
+    private ShoppingListItem item;
+    private int itemID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,8 @@ public class ShoppingItemFormActivity extends AppCompatActivity {
         descriptionTextField = findViewById(R.id.descriptionTextField);
 
         Intent intent = getIntent();
-        ShoppingListItem item = (ShoppingListItem) intent.getSerializableExtra("ITEM");
+        item = (ShoppingListItem) intent.getSerializableExtra("ITEM");
+        itemID = intent.getIntExtra("ITEM_ID", -1);
         if (item != null) {
             nameTextField.getEditText().setText(item.getName().toString());
             descriptionTextField.getEditText().setText(item.getName().toString());
@@ -38,9 +41,16 @@ public class ShoppingItemFormActivity extends AppCompatActivity {
         if (itemName.isEmpty()) {
             nameTextField.setError("Campo obrigatório");
         } else {
+            if (item != null) {
+                item.setName(itemName);
+                item.setDescription(itemDescription);
+            } else {
+                item = new ShoppingListItem(itemName, itemDescription, false);
+            }
+
             Intent intent = new Intent();
-            intent.putExtra("NEW_ITEM_NAME", itemName);
-            intent.putExtra("NEW_ITEM_DESCRIPTION", itemDescription);
+            intent.putExtra("ITEM", item);
+            intent.putExtra("ITEM_ID", itemID);
             setResult(RESULT_OK, intent);
             finish();
         }

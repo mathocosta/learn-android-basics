@@ -19,6 +19,9 @@ import java.util.ArrayList;
 
 public class ShoppingListActivity extends AppCompatActivity implements ShoppingListItemClickListener {
 
+    private static final int ADD_ITEM = 1;
+    private static final int EDIT_ITEM = 2;
+
     private ShoppingListRecListAdapter recViewAdapter;
     private ArrayList<ShoppingListItem> shoppingListItems = new ArrayList<ShoppingListItem>();
 
@@ -46,22 +49,31 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingL
 
     public void onAddActionButtonPressed(View view) {
         Intent intent = new Intent(this, ShoppingItemFormActivity.class);
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, ADD_ITEM);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            String itemName = data.getStringExtra("NEW_ITEM_NAME");
-            String itemDescription = data.getStringExtra("NEW_ITEM_DESCRIPTION");
+        if (resultCode == RESULT_OK) {
+            ShoppingListItem resultItem = (ShoppingListItem) data.getSerializableExtra("ITEM");
 
-            if (!itemName.isEmpty()) {
-                shoppingListItems.add(new ShoppingListItem(itemName, itemDescription, false));
-                recViewAdapter.setItems(shoppingListItems);
-                saveShoppingList(shoppingListItems);
+            if (resultItem == null) {
+                return;
             }
+
+            if (requestCode == ADD_ITEM) {
+                shoppingListItems.add(resultItem);
+            } else if (requestCode == EDIT_ITEM) {
+                int itemIndex = data.getIntExtra("ITEM_ID", -1);
+                if (itemIndex != -1) {
+                    shoppingListItems.set(itemIndex, resultItem);
+                }
+            }
+
+            recViewAdapter.setItems(shoppingListItems);
+            saveShoppingList(shoppingListItems);
         }
     }
 
@@ -69,14 +81,16 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingL
     public void onShoppingListItemClick(ShoppingListItem item) {
         Intent intent = new Intent(this, ShoppingItemFormActivity.class);
         intent.putExtra("ITEM", item);
-        startActivityForResult(intent, 1);
+        intent.putExtra("ITEM_ID", shoppingListItems.indexOf(item));
+        startActivityForResult(intent, EDIT_ITEM);
     }
 
     private ArrayList<ShoppingListItem> getSavedShoppingList() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         String savedJSON = sharedPreferences.getString("shopping_list", "");
         Gson gson = new Gson();
-        Type shoppingListType = new TypeToken<ArrayList<ShoppingListItem>>() {}.getType();
+        Type shoppingListType = new TypeToken<ArrayList<ShoppingListItem>>() {
+        }.getType();
         return gson.fromJson(savedJSON, shoppingListType);
     }
 
