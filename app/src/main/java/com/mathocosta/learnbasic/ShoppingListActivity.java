@@ -17,7 +17,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class ShoppingListActivity extends AppCompatActivity {
+public class ShoppingListActivity extends AppCompatActivity implements ShoppingListItemClickListener {
 
     private ShoppingListRecListAdapter recViewAdapter;
     private ArrayList<ShoppingListItem> shoppingListItems = new ArrayList<ShoppingListItem>();
@@ -26,10 +26,15 @@ public class ShoppingListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupRecyclerView();
+    }
 
+    private void setupRecyclerView() {
         RecyclerView shoppingListRecView = findViewById(R.id.shoppingListRecView);
-        recViewAdapter = new ShoppingListRecListAdapter(this);
+
+        recViewAdapter = new ShoppingListRecListAdapter(this, this);
         shoppingListRecView.setAdapter(recViewAdapter);
+
         shoppingListRecView.setLayoutManager(new LinearLayoutManager(this));
 
         ArrayList<ShoppingListItem> savedShoppingList = getSavedShoppingList();
@@ -53,11 +58,18 @@ public class ShoppingListActivity extends AppCompatActivity {
             String itemDescription = data.getStringExtra("NEW_ITEM_DESCRIPTION");
 
             if (!itemName.isEmpty()) {
-                shoppingListItems.add(new ShoppingListItem(itemName, itemDescription, ""));
+                shoppingListItems.add(new ShoppingListItem(itemName, itemDescription, false));
                 recViewAdapter.setItems(shoppingListItems);
                 saveShoppingList(shoppingListItems);
             }
         }
+    }
+
+    @Override
+    public void onShoppingListItemClick(ShoppingListItem item) {
+        Intent intent = new Intent(this, ShoppingItemFormActivity.class);
+        intent.putExtra("ITEM", item);
+        startActivityForResult(intent, 1);
     }
 
     private ArrayList<ShoppingListItem> getSavedShoppingList() {

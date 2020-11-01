@@ -1,25 +1,27 @@
 package com.mathocosta.learnbasic;
 
-public class ShoppingListItem {
-    private String name;
-    private String email;
-    private String imageURL;
+import java.io.Serializable;
 
-    public ShoppingListItem(String name, String email, String imageURL) {
+public class ShoppingListItem implements Serializable {
+    private String name;
+    private String description;
+    private boolean isChecked;
+
+    public ShoppingListItem(String name, String description, boolean isChecked) {
         this.name = name;
-        this.email = email;
-        this.imageURL = imageURL;
+        this.description = description;
+        this.isChecked = isChecked;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getDescription() {
+        return description;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public void setChecked(boolean checked) {
+        this.isChecked = checked;
     }
 }

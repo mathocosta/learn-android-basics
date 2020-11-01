@@ -22,16 +22,25 @@ public class ShoppingItemFormActivity extends AppCompatActivity {
         nameTextField = findViewById(R.id.nameTextField);
         quantityTextField = findViewById(R.id.quantityTextField);
         descriptionTextField = findViewById(R.id.descriptionTextField);
+
+        Intent intent = getIntent();
+        ShoppingListItem item = (ShoppingListItem) intent.getSerializableExtra("ITEM");
+        if (item != null) {
+            nameTextField.getEditText().setText(item.getName().toString());
+            descriptionTextField.getEditText().setText(item.getName().toString());
+        }
     }
 
     public void onSaveButtonPressed(View view) {
         String itemName = nameTextField.getEditText().getText().toString();
+        String itemDescription = descriptionTextField.getEditText().getText().toString();
 
         if (itemName.isEmpty()) {
             nameTextField.setError("Campo obrigatório");
         } else {
             Intent intent = new Intent();
             intent.putExtra("NEW_ITEM_NAME", itemName);
+            intent.putExtra("NEW_ITEM_DESCRIPTION", itemDescription);
             setResult(RESULT_OK, intent);
             finish();
         }
