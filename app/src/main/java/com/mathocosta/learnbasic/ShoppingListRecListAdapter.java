@@ -72,7 +72,7 @@ public class ShoppingListRecListAdapter extends RecyclerView.Adapter<ShoppingLis
         }
 
         public void bindView(ShoppingListItem listItem, ShoppingListItemClickListener listener) {
-            txtName.setText(listItem.getName());
+            txtName.setText(String.format("%dx %s", listItem.getQuantity(), listItem.getName()));
             txtDescription.setText(listItem.getDescription());
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

@@ -30,6 +30,7 @@ public class ShoppingItemFormActivity extends AppCompatActivity {
         itemID = intent.getIntExtra("ITEM_ID", -1);
         if (item != null) {
             nameTextField.getEditText().setText(item.getName().toString());
+            quantityTextField.getEditText().setText(String.valueOf(item.getQuantity()));
             descriptionTextField.getEditText().setText(item.getName().toString());
         }
     }
@@ -38,14 +39,23 @@ public class ShoppingItemFormActivity extends AppCompatActivity {
         String itemName = nameTextField.getEditText().getText().toString();
         String itemDescription = descriptionTextField.getEditText().getText().toString();
 
+        String itemQuantityValue = quantityTextField.getEditText().getText().toString();
+        int itemQuantity;
+        if (itemQuantityValue.isEmpty()) {
+            itemQuantity = 1;
+        } else {
+            itemQuantity = Integer.parseInt(itemQuantityValue);
+        }
+
         if (itemName.isEmpty()) {
             nameTextField.setError("Campo obrigatório");
         } else {
             if (item != null) {
                 item.setName(itemName);
                 item.setDescription(itemDescription);
+                item.setQuantity(itemQuantity);
             } else {
-                item = new ShoppingListItem(itemName, itemDescription, false);
+                item = new ShoppingListItem(itemName, itemDescription, itemQuantity, false);
             }
 
             Intent intent = new Intent();

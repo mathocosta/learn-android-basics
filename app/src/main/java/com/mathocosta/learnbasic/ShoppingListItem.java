@@ -7,10 +7,13 @@ public class ShoppingListItem implements Serializable {
     private String description;
     private boolean isChecked;
 
-    public ShoppingListItem(String name, String description, boolean isChecked) {
+    private int quantity;
+
+    public ShoppingListItem(String name, String description, int quantity, boolean isChecked) {
         this.name = name;
         this.description = description;
         this.isChecked = isChecked;
+        this.quantity = quantity;
     }
 
     public String getName() {
@@ -31,5 +34,13 @@ public class ShoppingListItem implements Serializable {
 
     public void setChecked(boolean checked) {
         this.isChecked = checked;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

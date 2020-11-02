@@ -6,8 +6,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +18,10 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+
+import static androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG;
+import static androidx.recyclerview.widget.RecyclerView.*;
 
 public class ShoppingListActivity extends AppCompatActivity implements ShoppingListItemClickListener {
 
@@ -24,6 +30,46 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingL
 
     private ShoppingListRecListAdapter recViewAdapter;
     private ArrayList<ShoppingListItem> shoppingListItems = new ArrayList<ShoppingListItem>();
+
+    private final ItemTouchHelper.SimpleCallback simpleTouchCallback = new ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.DOWN | ItemTouchHelper.UP,
+            0
+    ) {
+        @Override
+        public boolean onMove(
+                @NonNull RecyclerView recyclerView,
+                @NonNull ViewHolder viewHolder,
+                @NonNull ViewHolder target
+        ) {
+            Adapter adapter = recyclerView.getAdapter();
+            int fromPosition = viewHolder.getAdapterPosition();
+            int toPosition = target.getAdapterPosition();
+
+            Collections.swap(shoppingListItems, fromPosition, toPosition);
+            adapter.notifyItemMoved(fromPosition, toPosition);
+
+            return true;
+        }
+
+        @Override
+        public void onSwiped(@NonNull ViewHolder viewHolder, int direction) {
+        }
+
+        @Override
+        public void onSelectedChanged(@Nullable ViewHolder viewHolder, int actionState) {
+            super.onSelectedChanged(viewHolder, actionState);
+
+            if (actionState == ACTION_STATE_DRAG) {
+                viewHolder.itemView.setAlpha(0.8f);
+            }
+        }
+
+        @Override
+        public void clearView(@NonNull RecyclerView recyclerView, @NonNull ViewHolder viewHolder) {
+            super.clearView(recyclerView, viewHolder);
+            viewHolder.itemView.setAlpha(1.0f);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +85,7 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingL
         shoppingListRecView.setAdapter(recViewAdapter);
 
         shoppingListRecView.setLayoutManager(new LinearLayoutManager(this));
+        new ItemTouchHelper(simpleTouchCallback).attachToRecyclerView(shoppingListRecView);
 
         ArrayList<ShoppingListItem> savedShoppingList = getSavedShoppingList();
         if (savedShoppingList != null) {
