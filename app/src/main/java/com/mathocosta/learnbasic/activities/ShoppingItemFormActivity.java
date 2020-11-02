@@ -1,4 +1,4 @@
-package com.mathocosta.learnbasic;
+package com.mathocosta.learnbasic.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.mathocosta.learnbasic.R;
+import com.mathocosta.learnbasic.models.ShoppingListItem;
 
 public class ShoppingItemFormActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.mathocosta.learnbasic;
+package com.mathocosta.learnbasic.models;
 
 import java.io.Serializable;
 

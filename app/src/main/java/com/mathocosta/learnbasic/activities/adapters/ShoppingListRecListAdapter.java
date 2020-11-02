@@ -1,4 +1,4 @@
-package com.mathocosta.learnbasic;
+package com.mathocosta.learnbasic.activities.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,12 +12,10 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
+import com.mathocosta.learnbasic.R;
+import com.mathocosta.learnbasic.models.ShoppingListItem;
 
 import java.util.ArrayList;
-
-interface ShoppingListItemClickListener {
-    void onShoppingListItemClick(ShoppingListItem item);
-}
 
 public class ShoppingListRecListAdapter extends RecyclerView.Adapter<ShoppingListRecListAdapter.ViewHolder> {
 

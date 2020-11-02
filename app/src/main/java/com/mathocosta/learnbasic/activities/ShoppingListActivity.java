@@ -1,4 +1,4 @@
-package com.mathocosta.learnbasic;
+package com.mathocosta.learnbasic.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,13 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.mathocosta.learnbasic.R;
+import com.mathocosta.learnbasic.models.ShoppingListItem;
+import com.mathocosta.learnbasic.activities.adapters.ShoppingListItemClickListener;
+import com.mathocosta.learnbasic.activities.adapters.ShoppingListRecListAdapter;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG;
-import static androidx.recyclerview.widget.RecyclerView.*;
+import static androidx.recyclerview.widget.RecyclerView.Adapter;
+import static androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 public class ShoppingListActivity extends AppCompatActivity implements ShoppingListItemClickListener {
 
@@ -74,7 +79,7 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_shopping_list);
         setupRecyclerView();
     }
 
