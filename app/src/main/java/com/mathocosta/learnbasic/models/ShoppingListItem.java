@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class ShoppingListItem implements Serializable {
     private String name;
     private String description;
+
     private boolean isChecked;
 
     private int quantity;
@@ -34,6 +35,10 @@ public class ShoppingListItem implements Serializable {
 
     public void setChecked(boolean checked) {
         this.isChecked = checked;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
     }
 
     public int getQuantity() {

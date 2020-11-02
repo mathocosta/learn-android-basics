@@ -14,36 +14,41 @@
         android:layout_height="match_parent"
         android:padding="12dp">
 
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true" />
-
         <TextView
-            android:id="@+id/txtName"
+            android:id="@+id/txt_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_centerHorizontal="true"
-            android:layout_alignBaseline="@id/checkbox"
-            android:layout_toEndOf="@id/checkbox"
-            android:layout_toRightOf="@id/checkbox"
+            android:layout_toStartOf="@id/txt_counter"
+            android:layout_toLeftOf="@id/txt_counter"
             android:text="Item name"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txtDescription"
+            android:id="@+id/txt_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txtName"
-            android:layout_alignStart="@id/txtName"
-            android:layout_alignLeft="@id/txtName"
-            android:layout_alignEnd="@id/txtName"
-            android:layout_alignRight="@id/txtName"
+            android:layout_below="@id/txt_name"
+            android:layout_alignStart="@id/txt_name"
+            android:layout_alignLeft="@id/txt_name"
+            android:layout_alignEnd="@id/txt_name"
+            android:layout_alignRight="@id/txt_name"
             android:text="Description"
             android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/txt_counter"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="end"
+            android:text="0/1"
+            android:textAlignment="textEnd"
+            android:textSize="20sp" />
 
     </RelativeLayout>
 

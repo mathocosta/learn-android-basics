@@ -11,7 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LearnBasic">
-        <activity android:name=".activities.AllShoppingListsActivity"></activity>
+        <activity android:name=".activities.AllShoppingListsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.ShoppingItemFormActivity"
             android:parentActivityName=".activities.ShoppingListActivity">
@@ -19,12 +25,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.ShoppingListActivity" />
         </activity>
-        <activity android:name=".activities.ShoppingListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity
+            android:name=".activities.ShoppingListActivity"
+            android:parentActivityName=".activities.AllShoppingListsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.AllShoppingListsActivity" />
         </activity>
     </application>
 

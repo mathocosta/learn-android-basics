@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mathocosta.learnbasic.R;
 import com.mathocosta.learnbasic.models.ShoppingListItem;
-import com.mathocosta.learnbasic.activities.adapters.ShoppingListItemClickListener;
 import com.mathocosta.learnbasic.activities.adapters.ShoppingListRecListAdapter;
 
 import java.lang.reflect.Type;
@@ -28,7 +27,9 @@ import static androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG;
 import static androidx.recyclerview.widget.RecyclerView.Adapter;
 import static androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
-public class ShoppingListActivity extends AppCompatActivity implements ShoppingListItemClickListener {
+public class ShoppingListActivity
+        extends AppCompatActivity
+        implements ShoppingListRecListAdapter.ItemClickListener {
 
     private static final int ADD_ITEM = 1;
     private static final int EDIT_ITEM = 2;
@@ -84,9 +85,9 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingL
     }
 
     private void setupRecyclerView() {
-        RecyclerView shoppingListRecView = findViewById(R.id.shoppingListRecView);
+        RecyclerView shoppingListRecView = findViewById(R.id.shopping_list_rec_view);
 
-        recViewAdapter = new ShoppingListRecListAdapter(this, this);
+        recViewAdapter = new ShoppingListRecListAdapter(this);
         shoppingListRecView.setAdapter(recViewAdapter);
 
         shoppingListRecView.setLayoutManager(new LinearLayoutManager(this));
@@ -108,7 +109,7 @@ public class ShoppingListActivity extends AppCompatActivity implements ShoppingL
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK && data != null) {
             ShoppingListItem resultItem = (ShoppingListItem) data.getSerializableExtra("ITEM");
 
             if (resultItem == null) {
