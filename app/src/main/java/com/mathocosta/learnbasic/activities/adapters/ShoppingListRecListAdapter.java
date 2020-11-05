@@ -3,10 +3,10 @@ package com.mathocosta.learnbasic.activities.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.checkbox.MaterialCheckBox;
@@ -54,7 +54,7 @@ public class ShoppingListRecListAdapter
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView txtName;
         private final MaterialCheckBox checkBox;
-        private final CardView parent;
+        private final RelativeLayout parent;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

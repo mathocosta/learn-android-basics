@@ -10,14 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mathocosta.learnbasic.R;
-import com.mathocosta.learnbasic.models.ShoppingListItem;
 import com.mathocosta.learnbasic.activities.adapters.ShoppingListRecListAdapter;
+import com.mathocosta.learnbasic.models.ShoppingListItem;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -90,7 +89,6 @@ public class ShoppingListActivity
         recViewAdapter = new ShoppingListRecListAdapter(this);
         shoppingListRecView.setAdapter(recViewAdapter);
 
-        shoppingListRecView.setLayoutManager(new LinearLayoutManager(this));
         new ItemTouchHelper(simpleTouchCallback).attachToRecyclerView(shoppingListRecView);
 
         ArrayList<ShoppingListItem> savedShoppingList = getSavedShoppingList();
