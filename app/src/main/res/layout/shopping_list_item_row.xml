@@ -7,21 +7,9 @@
 
     <CheckBox
         android:id="@+id/checkbox"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true" />
-
-    <TextView
-        android:id="@+id/txt_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/checkbox"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerHorizontal="true"
-        android:layout_toEndOf="@id/checkbox"
-        android:layout_toRightOf="@id/checkbox"
-        android:text="Item name"
-        android:textStyle="bold" />
+        android:layout_centerVertical="true"
+        android:text="Exemplo" />
 
 </RelativeLayout>
